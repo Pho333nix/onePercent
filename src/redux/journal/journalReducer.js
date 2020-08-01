@@ -1,10 +1,8 @@
 
 const initialState={
-  journals: [
-   {id: '1', title: 'help me find peach', content: 'blah blah blah'},
-   {id: '2', title: 'collect all the stars', content: 'blah blah blah'},
-   {id: '3', title: 'egg hunt with yoshi', content: 'blah blah blah'}
- ]
+  notes: null,
+  selectedNoteIndex: null,
+  selectedNote: null
 }
 
 const journalReducer = (state=initialState,action) =>{
@@ -15,6 +13,20 @@ const journalReducer = (state=initialState,action) =>{
     case 'ADD_NOTE_ERROR':
      console.log('adding note error', action.error)
      return state;
+     case 'SELECT_NOTE':
+     const {id, n} = action.payload
+      return{
+        ...state,
+        selectedNoteIndex: id,
+        selectedNote: n,
+
+      }
+      case 'LOAD_NOTES':
+      const {notes} = action.payload
+      return{
+        ...state,
+        notes: notes
+      }
     default:
       return state
   }

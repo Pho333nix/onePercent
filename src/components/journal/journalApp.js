@@ -1,12 +1,14 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
 import React from 'react';
 import SidebarComponent from './sidebar/sidebar';
 import EditorComponent from './editor/editor';
 import TodoApp from '../todo/TodoApp';
 import './journalApp.css'
+import {loadNotes} from '../../redux/journal/journalActions'
 import M from  'materialize-css/dist/js/materialize.min.js';
 const firebase = require('firebase');
-import { connect } from 'react-redux';
+
 
 class Journal  extends Component{
   constructor() {
@@ -27,17 +29,28 @@ class Journal  extends Component{
           data['id'] = _doc.id
           return data;
         });
-        console.log('notes')
-        this.setState({notes: notes})
+      this.setState({notes: notes})
+      console.log('notes', this.state)
+
+
+  //
       });
+
     let sidenav = document.querySelector('#mobile-links');
     M.Sidenav.init(sidenav, {});
   }
 
+/*  componentWillUpdate = () =>{
+    const {i, n} = this.props;
+    this.setState({ selectedNoteIndex: i, selectNote:n})
+
+  } */
+
+  /*
   selectNote =(note, index)=>{
     this.setState({selectedNoteIndex: index, selectedNote: note})
   }
-
+*/
   noteUpdate =(id, noteObj) =>{
     firebase
     .firestore()
@@ -87,10 +100,11 @@ class Journal  extends Component{
   }
 
   render(){
+
         //TODO: add TodoApp as a <li>. part of the navbar
     return(
   <div className='Journal'>
-    <nav className='nav-wrapper  deep-purple darken-4'>
+/*    <nav className='nav-wrapper  deep-purple darken-4'>
      <div className='container'>
        <a href="#" className='brand-logo '>One percent</a>
        <a href="#" className='sidenav-trigger right' data-target='mobile-links'>
@@ -103,8 +117,7 @@ class Journal  extends Component{
         <li><a href="#">contact</a></li>
         <li><a href="#" className='btn-floating deep-purple darken-4 z-depth-0'>
           <i class="large material-icons">account_circle</i>
-        </a></li> {/* TODO: user/login make sure it is an icon when logged in
-          but ehn not it should just say 'Login'  */}
+        </a></li>
           <li><a href="#" className='btn-floating deep-purple darken-4 z-depth-0'>
             <i class="large material-icons">notifications</i>
           </a></li>
@@ -119,30 +132,22 @@ class Journal  extends Component{
       <li><a href="#">contact</a></li>
       <li><a href="#" className='btn-floating white z-depth-0'>
         <i class="large material-icons">account_circle</i>
-      </a></li> {/* TODO: user/login make sure it is an icon when logged in
-        but ehn not it should just say 'Login' in the mobile view aswell. fix css  */}
+      </a></li>
         <li><a href="#" className='btn-floating white z-depth-0'>
           <i class="large material-icons">notifications</i>
         </a></li>
       <li><span className={'badge white-text pink new'}>5</span></li>
-    </ul>
+    </ul> */
     <div className='row'>
         <div className='col s12 m4 l3'>
-          <SidebarComponent selectedNoteIndex={this.state.selectedNoteIndex}
-          deleteNote={this.deleteNote}
-          selectNote={this.selectNote}
-          newNote={this.newNote}
-          />
+          <SidebarComponent />
         </div>
           <br/>
           <br/>
         <div className='col s12 m8 l9'>
           {
             this.state.selectedNote ?
-            <EditorComponent selectedNote={this.state.selectedNote}
-            selectedNoteIndex={this.state.selectedNoteIndex}
-            notes={this.state.notes}
-            noteUpdate={this.noteUpdate}/> : null
+            <EditorComponent /> : null
           }
         </div>
       </div>
@@ -159,7 +164,13 @@ const mapStateToProps =(state)=>{
   }
 }
 
-  export default connect(mapStateToProps)(Journal)
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    loadNotes: (notes) => dispatch(loadNotes(notes))
+  }
+}
+
+  export default connect(mapStateToProps, mapDispatchToProps)(Journal)
 
   /*class Journal  extends Component{
     constructor() {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createNewNote } from '../../../redux/journal/journalActions'
+import { loadNotes } from '../../../redux/journal/journalActions'
 import SidebarItemComponent from '../sidebaritem/sidebarItem';
 import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -29,15 +30,15 @@ class SideBarComponent extends React.Component{
     this.props.createNewNote(note)
     this.setState({title: null, addingNote: false})
   }
-  selectNote=(n, i)=>{
-  this.props.selectNote(n, i);
-  }
+
   deleteNote=(note)=>{
     this.props.deleteNote(note);
   }
 
+
   render(){
    const {notes} = this.props;
+   
     if(notes){
       return(<div className=''>
           <button className='btn'
@@ -58,10 +59,11 @@ class SideBarComponent extends React.Component{
           <div className=' z-depth-3'>
            <ul className="collection with-header deep-purple lighten-5">
              <li className='collection-header'><h4>Journal</h4></li>{
-            notes.map((_note, _index)=>{
+            notes.map((note)=>{
+
               return(
-                  <div key={_index}>
-                    <SidebarItemComponent _note={_note} _index={_index}
+                  <div key={note.id}>
+                    <SidebarItemComponent note={note} id={note.id}
                     />
                   </div>
               )
@@ -87,6 +89,7 @@ const mapStateToProps = (state) =>{
     notes: state.firestore.ordered.notes || state.journal.notes
   }
 }
+
 const mapDispatchToProps = (dispatch) =>{
   return{
     createNewNote: (note) => dispatch(createNewNote(note))
