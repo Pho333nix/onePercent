@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import {signOut} from'../../redux/auth/authActions'
+import {NavLink} from 'react-router-dom'
 import React from 'react';
 import M from  'materialize-css/dist/js/materialize.min.js';
 
@@ -8,7 +10,11 @@ class SignedInLinks extends Component{
     let sidenav = document.querySelector('#mobile-links');
     M.Sidenav.init(sidenav, {});
   }
+  handleSignOut=()=>{
+    this.props.signOut();
+  }
 render(){
+
 return(  <div>
    <div className='container'>
      <a href="#" className='brand-logo '>One percent</a>
@@ -20,13 +26,13 @@ return(  <div>
       <li><a href="#">Journal</a></li>
       <li><a href="#">Dash Board</a></li>
       <li><a href="#">contact</a></li>
-        <li><a href="#">Log Out</a></li>
+      <li><a onClick={this.handleSignOut}>Log Out</a></li>
       <li><a href="#" className='btn-floating deep-purple darken-4 z-depth-0'>
-        <i class="large material-icons">account_circle</i>
+        <i className="large material-icons">account_circle</i>
       </a></li> {/* TODO: user/login make sure it is an icon when logged in
         but ehn not it should just say 'Login'  */}
         <li><a href="#" className='btn-floating deep-purple darken-4 z-depth-0'>
-          <i class="large material-icons">notifications</i>
+          <i className="large material-icons">notifications</i>
         </a></li>
       <li><span className={'badge white-text pink new'}>5</span></li>
     </ul>
@@ -36,17 +42,22 @@ return(  <div>
     <li><a href="#">Journal</a></li>
     <li><a href="#">Dash Board</a></li>
     <li><a href="#">contact</a></li>
-    <li><a href="#">Log Out</a></li>
+    <li><a onClick={this.handleSignOut}>Log Out</a></li>
     <li><a href="#" className='btn-floating white z-depth-0'>
-      <i class="large material-icons">account_circle</i>
+      <i className="large material-icons">account_circle</i>
     </a></li> {/* TODO: user/login make sure it is an icon when logged in
       but ehn not it should just say 'Login' in the mobile view aswell. fix css  */}
       <li><a href="#" className='btn-floating white z-depth-0'>
-        <i class="large material-icons">notifications</i>
+        <i className="large material-icons">notifications</i>
       </a></li>
     <li><span className={'badge white-text pink new'}>5</span></li>
   </ul>
   </div>);
 }
 }
-export default SignedInLinks;
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    signOut: ()=> dispatch(signOut())
+  }
+}
+export default connect(null, mapDispatchToProps)(SignedInLinks);

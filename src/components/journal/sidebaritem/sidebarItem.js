@@ -13,6 +13,7 @@ class SidebarItemComponent extends React.Component{
     }
   }
 
+
   render(){
     const {id, note, selectedNoteIndex}= this.props;
 
@@ -44,4 +45,4 @@ const mapDispatchToProps = (dispatch) =>{
 
 
 
-export default connect(null,{selectNote})(SidebarItemComponent)
+export default connect(null,mapDispatchToProps)(SidebarItemComponent)

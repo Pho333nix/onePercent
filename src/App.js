@@ -5,7 +5,7 @@ import SignIn from './components/auth/signIn';
 import SignUp from './components/auth/signUp';
 import SideBarComponent from './components/journal/sidebar/sidebar';
 import Journal from './components/journal/journalApp';
-import Navbar from './components/journal/navbar/navbar';
+import Navbar from './components/navbar/navbar';
 import {BrowserRouter} from 'react-router-dom'
 
 import './App.css'
@@ -14,8 +14,7 @@ function App() {
       <BrowserRouter>
 	        <div className=" deep-purple darken-1 App">
             <Navbar/>
-            <SignUp/>
-            <SignIn/>
+            <Journal/>
 	       </div>
       </BrowserRouter>
 
@@ -24,4 +23,8 @@ function App() {
 
 export default App;
 // <TodoApp/>
-//<Journal/>
+//
+/*
+<SignUp/>
+<SignIn/>
+*/

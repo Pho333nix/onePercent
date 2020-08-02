@@ -12,11 +12,12 @@ class Navbar extends Component{
     M.Sidenav.init(sidenav, {});
   }
 render(){
+  const {auth} = this.props;
+  const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>
   return(
   <div className='navbar'>
   <nav className='nav-wrapper  deep-purple darken-4'>
-    <SignedInLinks/>
-
+    {links}
     </nav>
 
     </div>
@@ -26,7 +27,7 @@ render(){
 
 const mapStateToProps = state =>{
   return{
-
+    auth: state.firebase.auth
   }
 }
-export default connect()(Navbar);
+export default connect(mapStateToProps)(Navbar);

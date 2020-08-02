@@ -104,40 +104,6 @@ class Journal  extends Component{
         //TODO: add TodoApp as a <li>. part of the navbar
     return(
   <div className='Journal'>
-/*    <nav className='nav-wrapper  deep-purple darken-4'>
-     <div className='container'>
-       <a href="#" className='brand-logo '>One percent</a>
-       <a href="#" className='sidenav-trigger right' data-target='mobile-links'>
-          <i className="material-icons">menu</i>
-       </a>
-      <ul className='right hide-on-med-and-down'>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Journal</a></li>
-        <li><a href="#">Dash Board</a></li>
-        <li><a href="#">contact</a></li>
-        <li><a href="#" className='btn-floating deep-purple darken-4 z-depth-0'>
-          <i class="large material-icons">account_circle</i>
-        </a></li>
-          <li><a href="#" className='btn-floating deep-purple darken-4 z-depth-0'>
-            <i class="large material-icons">notifications</i>
-          </a></li>
-        <li><span className={'badge white-text pink new'}>5</span></li>
-      </ul>
-     </div>
-    </nav>
-    <ul className='sidenav white' id='mobile-links'>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Journal</a></li>
-      <li><a href="#">Dash Board</a></li>
-      <li><a href="#">contact</a></li>
-      <li><a href="#" className='btn-floating white z-depth-0'>
-        <i class="large material-icons">account_circle</i>
-      </a></li>
-        <li><a href="#" className='btn-floating white z-depth-0'>
-          <i class="large material-icons">notifications</i>
-        </a></li>
-      <li><span className={'badge white-text pink new'}>5</span></li>
-    </ul> */
     <div className='row'>
         <div className='col s12 m4 l3'>
           <SidebarComponent />
