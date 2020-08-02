@@ -2,7 +2,10 @@
 const initialState={
   notes: null,
   selectedNoteIndex: null,
-  selectedNote: null
+  selectedNote: null,
+  title: '',
+  body: '',
+  id: ''
 }
 
 const journalReducer = (state=initialState,action) =>{
@@ -21,12 +24,34 @@ const journalReducer = (state=initialState,action) =>{
         selectedNote: n,
 
       }
-      case 'LOAD_NOTES':
-      const {notes} = action.payload
+      case 'UPDATE_TITLE':
+      const {title} = action.payload
       return{
         ...state,
-        notes: notes
+        title: title
       }
+      case 'UPDATE_BODY':
+      const {body} = action.payload
+      return{
+        ...state,
+        body: body
+      }
+      case 'LOAD_NOTE':
+      const {qtitle, qbody, quillid} = action.payload
+       return{
+         ...state,
+         title: qtitle,
+         body: qbody,
+         id: quillid
+
+       }
+       case 'UPDATE_SUCCESS':
+       console.log('update SUCCESS')
+       return state;
+       case 'UPDATE_ERROR':
+       console.log('update error;')
+       return state;
+
     default:
       return state
   }

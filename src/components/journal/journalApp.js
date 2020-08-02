@@ -5,7 +5,6 @@ import SidebarComponent from './sidebar/sidebar';
 import EditorComponent from './editor/editor';
 import TodoApp from '../todo/TodoApp';
 import './journalApp.css'
-import {loadNotes} from '../../redux/journal/journalActions'
 import M from  'materialize-css/dist/js/materialize.min.js';
 const firebase = require('firebase');
 
@@ -29,39 +28,17 @@ class Journal  extends Component{
           data['id'] = _doc.id
           return data;
         });
-      this.setState({notes: notes})
+    //  this.setState({notes: notes})
       console.log('notes', this.state)
 
 
   //
       });
 
-    let sidenav = document.querySelector('#mobile-links');
-    M.Sidenav.init(sidenav, {});
+
   }
 
-/*  componentWillUpdate = () =>{
-    const {i, n} = this.props;
-    this.setState({ selectedNoteIndex: i, selectNote:n})
 
-  } */
-
-  /*
-  selectNote =(note, index)=>{
-    this.setState({selectedNoteIndex: index, selectedNote: note})
-  }
-*/
-  noteUpdate =(id, noteObj) =>{
-    firebase
-    .firestore()
-    .collection('notes')
-    .doc(id)
-    .update({
-      title: noteObj.title,
-      body: noteObj.body,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  }
   //TODO: deleteNote, fix selected note 1:43
     deleteNote = async (note) =>{
     const noteIndex = this.state.notes.indexOf(note);
@@ -100,8 +77,10 @@ class Journal  extends Component{
   }
 
   render(){
-
+        const {selectedNoteIndex, selectedNote} = this.props.journals;
+        //this.setState({selectedNoteIndex: selectedNoteIndexR})
         //TODO: add TodoApp as a <li>. part of the navbar
+        console.log('journals', this.selectedNoteIndex)
     return(
   <div className='Journal'>
     <div className='row'>
@@ -112,7 +91,8 @@ class Journal  extends Component{
           <br/>
         <div className='col s12 m8 l9'>
           {
-            this.state.selectedNote ?
+            console.log('selected',selectedNote),
+            selectedNote ?
             <EditorComponent /> : null
           }
         </div>
@@ -126,17 +106,10 @@ class Journal  extends Component{
 
 const mapStateToProps =(state)=>{
   return{
-    journals: state.journal.journals
+    journals: state.journal
   }
 }
-
-const mapDispatchToProps = (dispatch) =>{
-  return{
-    loadNotes: (notes) => dispatch(loadNotes(notes))
-  }
-}
-
-  export default connect(mapStateToProps, mapDispatchToProps)(Journal)
+  export default connect(mapStateToProps)(Journal)
 
   /*class Journal  extends Component{
     constructor() {

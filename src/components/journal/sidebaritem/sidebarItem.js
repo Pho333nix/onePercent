@@ -19,6 +19,7 @@ class SidebarItemComponent extends React.Component{
 
     return(<div key={id} onClick={() => this.handleSelectNote(id, note)}>
      <li className={selectedNoteIndex === id ? "collection-item active" :  "collection-item "}>
+        {console.log(selectedNoteIndex)}
           <i className="material-icons purple-text ">book</i>
           <span className="title">{note.title}</span>
             <a href="#" className="secondary-content ">
