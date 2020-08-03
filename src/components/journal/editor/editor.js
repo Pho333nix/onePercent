@@ -41,9 +41,14 @@ class EditorComponent extends React.Component{
     }
     */
 
-    if(selectedNote.id !== id){
-      this.props.loadNote(this.state.title, this.state.text, this.state.id)
-  }
+    if(selectedNote.id !== this.state.id){
+      this.setState({
+        text: selectedNote.body,
+        title: selectedNote.title,
+        id: selectedNote.id
+      });
+ this.props.loadNote(selectedNote.title, selectedNote.body, selectedNote.id)
+ }
 }
 
 
