@@ -40,7 +40,7 @@ export const loadNote = (qtitle, qbody, quillid) =>({
 
 
 export const noteUpdate = (id, noteObj) =>{
-  console.log('whhy', id, noteObj) 
+  console.log('whhy', id, noteObj)
   return(dispatch, getState,{ getFirebase, getFirestore })=>{
     const firestore = getFirestore();
 

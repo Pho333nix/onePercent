@@ -47,15 +47,16 @@ class EditorComponent extends React.Component{
   }
 
   updateBody = async(val) =>{
-    await this.props.updateBody(val)
+      //this.setState({ text: val });
+     await this.props.updateBody(val)
     console.log('updateBody', val)
-   //this.update();
+   this.update();
   };
 
-  update =  debounce(async()=>{
+  update =  debounce(()=>{
     const { title, body, id } = this.props.journals;
     console.log('deb', title, id, body)
-    await this.props.noteUpdate(id, {
+     this.props.noteUpdate(id, {
       title: title,
       body: body
     })
@@ -65,9 +66,19 @@ class EditorComponent extends React.Component{
     await this.props.journals.updateTitle(title);
   this.update();
   }
+/*  quillBody = async (val) =>{
+    await this.setState({text: val})
+    console.log('quillbod', val)
+    this.updateQuill()
+  }
+  updateQuill = debounce(() => {
+    console.log('quill update', this.state.text)
+}, 1500);
+*/
 
   render(){
     const { title, body, id } = this.props.journals;
+    console.log('id from render', id)
     return(
       <div className=' deep-purple lighten-5 z-depth-3'>
         <input className=''
@@ -76,6 +87,7 @@ class EditorComponent extends React.Component{
           onChange={(e)=> this.updateTitle(e.target.value)}></input>
             <ReactQuill
             value={body} onChange={this.updateBody}/>
+          <button onClick={this.updateBody}>save</button>
       </div>);
   }
     logChange = ()=>{console.log('change')}
@@ -83,7 +95,7 @@ class EditorComponent extends React.Component{
 }
 const mapStateToProps =(state)=>{
   return{
-    journals: state.journal,
+    journals: state.journal
   }
 }
 const mapDispatchToProps = dispatch =>{
