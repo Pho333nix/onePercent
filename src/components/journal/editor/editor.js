@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
-import debounce from '../helpers';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -8,6 +7,7 @@ import {updateTitle} from '../../../redux/journal/journalActions'
 import {updateBody} from '../../../redux/journal/journalActions'
 import {loadNote} from '../../../redux/journal/journalActions'
 import {noteUpdate} from '../../../redux/journal/journalActions'
+import {debounce} from 'lodash';
 class EditorComponent extends React.Component{
   constructor(){
     super();
@@ -20,47 +20,50 @@ class EditorComponent extends React.Component{
 
  componentDidMount =() =>{
    const {selectedNoteIndex, selectedNote} = this.props.journals;
-    /*  this.setState({
-        text: this.props.selectedNote.body,
-        title: this.props.selectedNote.title,
-        id: this.props.selectedNote.id
+      this.setState({
+        text: selectedNote.body,
+        title: selectedNote.title,
+        id: selectedNote.id
       });
-      */
-      console.log('compUpeditor', selectedNote.title, selectedNote.body, selectedNote.id )
-      this.props.loadNote(selectedNote.title, selectedNote.body, selectedNote.id)
+
+      // console.log('compUpeditor', selectedNote.title, selectedNote.body, selectedNote.id )
+       this.props.loadNote(selectedNote.title, selectedNote.body, selectedNote.id)
   }
 
-  componentDidUpdate = () =>{
+ componentDidUpdate = () =>{
      const {id, selectedNote} = this.props.journals;
-  /*  if(this.props.selectedNote.id !== this.state.id){
+/*   if(selectedNote.id !== this.state.id){
       this.setState({
-        text: this.props.selectedNote.body,
-        title: this.props.selectedNote.title,
-        id: this.props.selectedNote.id
+        text: selectedNote.body,
+        title: selectedNote.title,
+        id: selectedNote.id
       });
     }
     */
-    if(selectedNote.id !== id){
-      this.props.loadNote(selectedNote.title, selectedNote.body, selectedNote.id)
-    }
 
+    if(selectedNote.id !== id){
+      this.props.loadNote(this.state.title, this.state.text, this.state.id)
   }
+}
+
+
 
   updateBody = async(val) =>{
-      //this.setState({ text: val });
-     await this.props.updateBody(val)
+    //  await this.setState({ text: val });
+    //await this.props.updateBody(val)
     console.log('updateBody', val)
-   this.update();
+   this.update(val);
   };
 
-  update =  debounce(()=>{
-    const { title, body, id } = this.props.journals;
-    console.log('deb', title, id, body)
-     this.props.noteUpdate(id, {
-      title: title,
-      body: body
+  update =  debounce(async (val)=>{
+  //  const { title, body, id } = this.props.journals;
+  //  console.log('deb', title, id, body)
+  await this.setState({ text: val });
+     this.props.noteUpdate(this.state.id, {
+      title: this.state.title,
+      body: this.state.text
     })
-  }, 1500);
+  }, 2500);
 
   updateTitle = async (title) =>{
     await this.props.journals.updateTitle(title);
@@ -78,7 +81,8 @@ class EditorComponent extends React.Component{
 
   render(){
     const { title, body, id } = this.props.journals;
-    console.log('id from render', id)
+    console.log('render', title, body, id)
+    console.log('render state,', this.props.journals)
     return(
       <div className=' deep-purple lighten-5 z-depth-3'>
         <input className=''
@@ -87,7 +91,6 @@ class EditorComponent extends React.Component{
           onChange={(e)=> this.updateTitle(e.target.value)}></input>
             <ReactQuill
             value={body} onChange={this.updateBody}/>
-          <button onClick={this.updateBody}>save</button>
       </div>);
   }
     logChange = ()=>{console.log('change')}
@@ -96,6 +99,7 @@ class EditorComponent extends React.Component{
 const mapStateToProps =(state)=>{
   return{
     journals: state.journal
+  //  firestore: state.firestore.ordered.notes
   }
 }
 const mapDispatchToProps = dispatch =>{

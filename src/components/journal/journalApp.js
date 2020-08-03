@@ -80,7 +80,7 @@ class Journal  extends Component{
         const {selectedNoteIndex, selectedNote} = this.props.journals;
         //this.setState({selectedNoteIndex: selectedNoteIndexR})
         //TODO: add TodoApp as a <li>. part of the navbar
-        console.log('journals', this.selectedNoteIndex)
+        console.log('journals', selectedNoteIndex)
     return(
   <div className='Journal'>
     <div className='row'>
