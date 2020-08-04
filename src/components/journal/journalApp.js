@@ -4,6 +4,11 @@ import React from 'react';
 import SidebarComponent from './sidebar/sidebar';
 import EditorComponent from './editor/editor';
 import TodoApp from '../todo/TodoApp';
+import {updateTitle} from '../../redux/journal/journalActions'
+import {updateBody} from '../../redux/journal/journalActions'
+import {loadNote} from '../../redux/journal/journalActions'
+import {noteUpdate} from '../../redux/journal/journalActions'
+import {debounce} from 'lodash';
 import './journalApp.css'
 import M from  'materialize-css/dist/js/materialize.min.js';
 const firebase = require('firebase');
@@ -102,6 +107,14 @@ class Journal  extends Component{
   }
 
 
+}
+const mapDispatchToProps = dispatch =>{
+  return{
+    updateTitle: (title) => dispatch(updateTitle(title)),
+    updateBody: (body) => dispatch(updateBody(body)),
+    loadNote: (title, body, id) => dispatch(loadNote(title, body, id)),
+    noteUpdate: (id, obj) => dispatch(noteUpdate(id, obj))
+  }
 }
 
 const mapStateToProps =(state)=>{

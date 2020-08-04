@@ -16,6 +16,7 @@ class SidebarItemComponent extends React.Component{
 
   render(){
     const {id, note, selectedNoteIndex}= this.props;
+    console.log('sidebarItemRender', note)
 
     return(<div key={id} onClick={() => this.handleSelectNote(id, note)}>
      <li className={selectedNoteIndex === id ? "collection-item active" :  "collection-item "}>

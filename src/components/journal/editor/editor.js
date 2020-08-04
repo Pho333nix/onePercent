@@ -8,6 +8,8 @@ import {updateBody} from '../../../redux/journal/journalActions'
 import {loadNote} from '../../../redux/journal/journalActions'
 import {noteUpdate} from '../../../redux/journal/journalActions'
 import {debounce} from 'lodash';
+import {selectNote} from '../../../redux/journal/journalActions'
+
 class EditorComponent extends React.Component{
   constructor(){
     super();
@@ -54,7 +56,7 @@ class EditorComponent extends React.Component{
 
 
   updateBody = async(val) =>{
-    //  await this.setState({ text: val });
+    //await this.setState({ text: val });
     //await this.props.updateBody(val)
     console.log('updateBody', val)
    this.update(val);
@@ -64,7 +66,8 @@ class EditorComponent extends React.Component{
   //  const { title, body, id } = this.props.journals;
   //  console.log('deb', title, id, body)
   await this.setState({ text: val });
-     this.props.noteUpdate(this.state.id, {
+  await this.props.selectNote(this.state.id, )
+  await   this.props.noteUpdate(this.state.id, {
       title: this.state.title,
       body: this.state.text
     })
@@ -112,7 +115,8 @@ const mapDispatchToProps = dispatch =>{
     updateTitle: (title) => dispatch(updateTitle(title)),
     updateBody: (body) => dispatch(updateBody(body)),
     loadNote: (title, body, id) => dispatch(loadNote(title, body, id)),
-    noteUpdate: (id, obj) => dispatch(noteUpdate(id, obj))
+    noteUpdate: (id, obj) => dispatch(noteUpdate(id, obj)),
+    selectNote: (id, n) => dispatch(selectNote(id, n))
   }
 }
 export default compose(

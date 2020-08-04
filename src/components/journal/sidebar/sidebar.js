@@ -38,7 +38,7 @@ class SideBarComponent extends React.Component{
 
   render(){
    const {notes} = this.props;
-   
+   console.log('sidebarRender', notes)
     if(notes){
       return(<div className=''>
           <button className='btn'

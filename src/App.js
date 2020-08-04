@@ -16,6 +16,7 @@ function App() {
 	        <div className=" deep-purple darken-1 App">
             <Navbar/>
             <Journal/>
+            <TodoApp/>
 	       </div>
       </BrowserRouter>
 
@@ -23,7 +24,7 @@ function App() {
 }
 
 export default App;
-// <TodoApp/>
+//
 //
 /*
 <SignUp/>
