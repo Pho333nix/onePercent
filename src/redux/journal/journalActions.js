@@ -50,14 +50,6 @@ export const noteUpdate = (id, noteObj) =>{
       title: noteObj.title,
       body: noteObj.body,
       timestamp: new Date()
-    }).then(()=>{
-      dispatch({type: 'UPDATE_BODY', payload: noteObj.body})
-      dispatch({type: 'SELECT_NOTE', payload: {id, noteObj}})
-      dispatch({type: 'UPDATE_TITLE', payload: noteObj.title})
-    }).then(()=>{
-      dispatch({type: 'UPDATE_SUCESS'})
-    }).catch((error)=>{
-      dispatch({type: 'UPDATE_ERROR', error})
     })
   }
 }

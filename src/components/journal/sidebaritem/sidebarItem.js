@@ -32,13 +32,14 @@ class SidebarItemComponent extends React.Component{
   }
 
 }
-/*
+
 const mapStateToProps = (state) =>{
   return{
     id: state.firestore.data.notes.id,
+    journal: state.journal
 
   }
-} */
+}
 const mapDispatchToProps = (dispatch) =>{
   return{
     selectNote: (id, n) => dispatch(selectNote(id, n))

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {updateTitle} from '../../../redux/journal/journalActions'
-import {updateBody} from '../../../redux/journal/journalActions'
 import {loadNote} from '../../../redux/journal/journalActions'
 import {noteUpdate} from '../../../redux/journal/journalActions'
 import {debounce} from 'lodash';
@@ -55,28 +54,23 @@ class EditorComponent extends React.Component{
 
 
 
-  updateBody = async(val) =>{
-    //await this.setState({ text: val });
-    //await this.props.updateBody(val)
-    console.log('updateBody', val)
-   this.update(val);
-  };
+updateBody = async val => {
+   await this.setState({ text: val });
+   this.update();
+ };
 
-  update =  debounce(async (val)=>{
-  //  const { title, body, id } = this.props.journals;
-  //  console.log('deb', title, id, body)
-  await this.setState({ text: val });
-  await this.props.selectNote(this.state.id, )
-  await   this.props.noteUpdate(this.state.id, {
-      title: this.state.title,
-      body: this.state.text
-    })
-  }, 2500);
+ updateTitle = async txt => {
+   await this.setState({ title: txt });
+   this.update();
+ };
 
-  updateTitle = async (title) =>{
-    await this.props.journals.updateTitle(title);
-  this.update();
-  }
+ update = debounce(() => {
+   this.props.noteUpdate(this.state.id, {
+     title: this.state.title,
+     body: this.state.text
+   });
+ }, 1500);
+
 /*  quillBody = async (val) =>{
     await this.setState({text: val})
     console.log('quillbod', val)
@@ -98,7 +92,7 @@ class EditorComponent extends React.Component{
           value={title ? title : ''}
           onChange={(e)=> this.updateTitle(e.target.value)}></input>
             <ReactQuill
-            value={body} onChange={this.updateBody}/>
+              value={this.state.text} onChange={this.updateBody}/>
       </div>);
   }
     logChange = ()=>{console.log('change')}
@@ -113,7 +107,7 @@ const mapStateToProps =(state)=>{
 const mapDispatchToProps = dispatch =>{
   return{
     updateTitle: (title) => dispatch(updateTitle(title)),
-    updateBody: (body) => dispatch(updateBody(body)),
+
     loadNote: (title, body, id) => dispatch(loadNote(title, body, id)),
     noteUpdate: (id, obj) => dispatch(noteUpdate(id, obj)),
     selectNote: (id, n) => dispatch(selectNote(id, n))

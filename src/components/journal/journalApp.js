@@ -112,8 +112,8 @@ const mapDispatchToProps = dispatch =>{
   return{
     updateTitle: (title) => dispatch(updateTitle(title)),
     updateBody: (body) => dispatch(updateBody(body)),
-    loadNote: (title, body, id) => dispatch(loadNote(title, body, id)),
-    noteUpdate: (id, obj) => dispatch(noteUpdate(id, obj))
+    loadNote: (title, body, id) => dispatch(loadNote(title, body, id))
+    //noteUpdate: (id, obj) => dispatch(noteUpdate(id, obj))
   }
 }
 
