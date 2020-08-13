@@ -26,21 +26,10 @@ class EditorComponent extends React.Component{
         title: selectedNote.title,
         id: selectedNote.id
       });
-
-      // console.log('compUpeditor', selectedNote.title, selectedNote.body, selectedNote.id )
-       this.props.loadNote(selectedNote.title, selectedNote.body, selectedNote.id)
   }
 
  componentDidUpdate = () =>{
      const {id, selectedNote} = this.props.journals;
-/*   if(selectedNote.id !== this.state.id){
-      this.setState({
-        text: selectedNote.body,
-        title: selectedNote.title,
-        id: selectedNote.id
-      });
-    }
-    */
 
     if(selectedNote.id !== this.state.id){
       this.setState({
@@ -48,11 +37,8 @@ class EditorComponent extends React.Component{
         title: selectedNote.title,
         id: selectedNote.id
       });
- this.props.loadNote(selectedNote.title, selectedNote.body, selectedNote.id)
- }
+     }
 }
-
-
 
 updateBody = async val => {
    await this.setState({ text: val });
@@ -71,15 +57,6 @@ updateBody = async val => {
    });
  }, 1500);
 
-/*  quillBody = async (val) =>{
-    await this.setState({text: val})
-    console.log('quillbod', val)
-    this.updateQuill()
-  }
-  updateQuill = debounce(() => {
-    console.log('quill update', this.state.text)
-}, 1500);
-*/
 
   render(){
     const { title, body, id } = this.props.journals;
@@ -89,26 +66,21 @@ updateBody = async val => {
       <div className=' deep-purple lighten-5 z-depth-3'>
         <input className=''
           placeholder='Note title ...'
-          value={title ? title : ''}
+          value={this.state.title ? this.state.title : ''}
           onChange={(e)=> this.updateTitle(e.target.value)}></input>
             <ReactQuill
               value={this.state.text} onChange={this.updateBody}/>
       </div>);
   }
-    logChange = ()=>{console.log('change')}
-
 }
 const mapStateToProps =(state)=>{
   return{
     journals: state.journal
-  //  firestore: state.firestore.ordered.notes
   }
 }
 const mapDispatchToProps = dispatch =>{
   return{
     updateTitle: (title) => dispatch(updateTitle(title)),
-
-    loadNote: (title, body, id) => dispatch(loadNote(title, body, id)),
     noteUpdate: (id, obj) => dispatch(noteUpdate(id, obj)),
     selectNote: (id, n) => dispatch(selectNote(id, n))
   }

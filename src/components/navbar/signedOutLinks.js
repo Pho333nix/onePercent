@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import React from 'react';
+import { NavLink } from 'react-router-dom'
 import M from  'materialize-css/dist/js/materialize.min.js';
 
 class SignedOutLinks extends Component{
@@ -19,7 +20,8 @@ return(  <div>
     <ul className='right hide-on-med-and-down'>
       <li><a href="#">Home</a></li>
       <li><a href="#">contact</a></li>
-        <li><a href="#">Log In</a></li>
+        <li><NavLink to='/signup'>Signup</NavLink></li>
+        <li><NavLink to='/signin'>Login</NavLink></li>
       <li><a href="#" className='btn-floating deep-purple darken-4 z-depth-0'>
         <i class="large material-icons">account_circle</i>
       </a></li> {/* TODO: user/login make sure it is an icon when logged in
@@ -33,7 +35,8 @@ return(  <div>
   <ul className='sidenav white' id='mobile-links'>
     <li><a href="#">Home</a></li>
     <li><a href="#">contact</a></li>
-    <li><a href="#">Log In</a></li>
+    <li><NavLink to='/signup'>Signup</NavLink></li>
+    <li><NavLink to='/signin'>Login</NavLink></li>
     <li><a href="#" className='btn-floating white z-depth-0'>
       <i class="large material-icons">account_circle</i>
     </a></li> {/* TODO: user/login make sure it is an icon when logged in

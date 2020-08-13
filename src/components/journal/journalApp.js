@@ -85,7 +85,7 @@ class Journal  extends Component{
         const {selectedNoteIndex, selectedNote} = this.props.journals;
         //this.setState({selectedNoteIndex: selectedNoteIndexR})
         //TODO: add TodoApp as a <li>. part of the navbar
-        console.log('journals', selectedNoteIndex)
+        //TODO: fix todo so that its a proper collapsible component
     return(
   <div className='Journal'>
     <div className='row'>
@@ -94,13 +94,15 @@ class Journal  extends Component{
         </div>
           <br/>
           <br/>
-        <div className='col s12 m8 l9'>
+        <div className='col s12 m8 l8 container left'>
           {
             console.log('selected',selectedNote),
             selectedNote ?
             <EditorComponent /> : null
           }
+
         </div>
+        <div className="col s12 m4 l2 right"><TodoApp/></div>
       </div>
 
       </div>)

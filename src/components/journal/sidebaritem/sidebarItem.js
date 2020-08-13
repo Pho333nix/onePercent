@@ -26,7 +26,7 @@ class SidebarItemComponent extends React.Component{
             <a href="#" className="secondary-content ">
               <i className="material-icons deep-purple-text right" onClick={() => this.deleteNote(note)} >delete</i>
             </a>
-          <p className="grey-text">{removeHTMLTags(note.body.substring(0, 30)) + '...'}</p>
+          <p className="grey-text truncate">{removeHTMLTags(note.body)}</p>
      </li>
       </div>);
   }
